@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+
+\title{CSE550-project}
+\author{CSE550 Project}
+\date{November 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+This project focuses on ``using machine learning for quantum state estimation.'' Classical estimators covered in the course---ranging from maximum likelihood tomography to Kalman filtering---provide the baselines against which learning-based approaches are evaluated. The following review captures the first phase of the project, highlighting the state of the art, domain boundaries, and the complementary relationships between traditional and learning-centric methods.
+
+\section{Landscape Review: Machine-Learning-Based Quantum State Estimation}
+
+The goal of quantum state estimation is to reconstruct a density matrix or wave function as accurately as possible under limited measurement budgets. Projection-based tomography and statistical filters such as the Kalman family perform well for low-dimensional systems with well-controlled noise. However, the rise of noisy intermediate-scale quantum (NISQ) devices and large many-body systems exposes key limitations in sample complexity, computational cost, and adaptability, creating opportunities for machine learning.
+
+\subsection{Classical Quantum State Estimation}
+
+Maximum-likelihood quantum tomography repeatedly measures and iteratively refines state estimates, offering robust performance for small laboratory systems but suffering from overfitting and numerical instability as the parameter dimension grows exponentially\cite{Hradil1997}. When the underlying state is sparse or low rank, compressed sensing reduces the measurement complexity from exponential to polynomial order, which is particularly valuable for calibrating superconducting qubit arrays\cite{Gross2010}. For continuously monitored systems, quantum Kalman filtering models signal and noise dynamics jointly, enabling incremental estimation with real-time feedback and forming the backbone of many quantum optics platforms\cite{Wiseman2010}. These methods rely heavily on explicit physics priors and often struggle when measurement noise, device drifts, or unmodeled correlations dominate.
+
+\subsection{Machine-Learning-Driven Estimators}
+
+Machine learning aims to alleviate dependence on explicit models by leveraging flexible data-driven representations. Neural-network quantum state tomography (NNQST) parameterizes amplitudes and phases via restricted Boltzmann machines or neural autoregressive flows, reconstructing highly entangled states with fewer samples\cite{Torlai2018}. Generative models such as Born machines and variational autoencoders replicate measurement distributions while providing differentiable latent representations for downstream tasks like error mitigation or phase estimation\cite{Carrasquilla2019}. Recent work combines meta-learning and classical shadows to transfer estimators across Hamiltonians and noise configurations, predicting a broad set of observables with near-polynomial numbers of measurements\cite{Huang2020}. Compared with maximum likelihood and Kalman filters, these learning-based strategies offer greater flexibility for nonlinear modeling and many-body scaling, at the cost of increased data requirements, limited interpretability, and the need to enforce physical consistency constraints.
+
+\subsection{Open Challenges and Course Connections}
+
+Key open problems include: (i) designing loss functions that remain differentiable yet respect positivity and trace constraints; (ii) training high-dimensional models with limited experimental data while supporting online or adaptive updates; and (iii) benchmarking classical and learning-based estimators under multi-body noise, parameter drift, and hardware nonidealities. Subsequent project phases will revisit the classical techniques presented in class to establish principled comparisons and guide experimental designs for these open questions.
+
+\begin{thebibliography}{9}
+\bibitem{Hradil1997}
+Z.~Hradil, ``Quantum-state estimation,'' \textit{Phys. Rev. A}, vol.~55, pp.~R1561--R1564, 1997.
+
+\bibitem{Gross2010}
+D.~Gross, Y.-K.~Liu, S.~T.~Flammia, S.~Becker, and J.~Eisert, ``Quantum state tomography via compressed sensing,'' \textit{Phys. Rev. Lett.}, vol.~105, p.~150401, 2010.
+
+\bibitem{Wiseman2010}
+H.~M.~Wiseman and G.~J.~Milburn, \textit{Quantum Measurement and Control}. Cambridge University Press, 2010.
+
+\bibitem{Torlai2018}
+G.~Torlai, G.~Mazzola, J.~Carrasquilla, et al., ``Neural-network quantum state tomography,'' \textit{Nat. Phys.}, vol.~14, pp.~447--450, 2018.
+
+\bibitem{Carrasquilla2019}
+J.~Carrasquilla, G.~Torlai, R.~G.~Melko, and L.~Aolita, ``Reconstructing quantum states with generative models,'' \textit{Nat. Mach. Intell.}, vol.~1, pp.~155--161, 2019.
+
+\bibitem{Huang2020}
+H.-Y.~Huang, R.~Kueng, and J.~Preskill, ``Predicting many properties of a quantum system from very few measurements,'' \textit{Nat. Phys.}, vol.~16, pp.~1050--1057, 2020.
+\end{thebibliography}
+
+\end{document}
